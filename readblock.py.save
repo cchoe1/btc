@@ -1,0 +1,177 @@
+##this file contains the code to read the blocks
+# pass in a single block (single line of a single file)
+from bitcoin import *
+
+def compileBlock(raw):
+	#code for breaking the block up goes here
+	
+	def loadBlock(rawString):
+		blockarr = list(rawString)
+		#removes \n at the end
+		blocklen = len(blockarr)
+		blockarr.pop(blocklen - 1)
+
+		blocklen = len(blockarr)
+
+		print('Length of block: ', blocklen, '\n')
+		#print(blockarr)
+
+		return blockarr
+
+	def step():
+		#code to determine length of each step
+		print('hello')
+
+	def parseHash(hash):
+		unhashed = deserialize(hash)
+		print(unhashed)
+
+	def toDict(array):
+		output = {'blen': array[0], 'bvers': array[1], 'bprev': array[2], 'bmerk': array[3], 'btime': array[4], 
+			'bdiff': array[5], 'bnonce': array[6], 'btxct': array[7], 'bhash': array[8]}
+		return output
+
+	# this section determines the length of the split - need to 
+	# pass in length of sections
+	def splitBlock(array):
+		end = len(array) - 1
+
+		blen = array[0:8]
+		bvers = array[8:16]
+		bprev = array[16:80]
+		bmerk = array[80:144]
+		btime = array[144:152]
+
+		bdiff = array[152:160]
+		bnonce = array[160:168]
+		btxct = array[168:170]
+		bhash = array[170:]
+
+		split = []
+		split.append(blen)
+		split.append(bvers)
+		split.append(bprev)
+		split.append(bmerk)
+		split.append(btime)
+		split.append(bdiff)
+		split.append(bnonce)
+		split.append(btxct)
+		split.append(bhash)
+
+		return split
+
+	def splitTx(tx):
+
+		def findChecksig(array):
+			checksig = array[-10:]
+			return checksig
+
+
+		def split88ac(string):
+			array = string.split('ac00000000')
+			new = []
+
+			for entry in array:
+				entry = entry + 'ac00000000'
+				new.append(entry)
+
+			new.pop(len(new) - 1)
+			return new
+
+		def getCoinbase(array):
+			split = []
+			new = array.pop(0)
+
+			split.append([new])
+			split.append(array)
+			return split
+
+
+		split = split88ac(tx)
+		return split
+
+	def toString(arr):
+		string = ''.join(arr)
+		return string
+
+
+	#pass in single array of characters
+	def groupHex(arr):
+		done = []
+		step = 0
+		# loops twice
+		for element in arr:
+			final = []
+			leng = len(element) - 1
+			key = 0
+
+			while (key < leng):
+				array = []
+				inc = 0
+
+				while (inc < 2):
+					array.append(arr[step][key])
+					key += 1
+					inc += 1
+				final.append(array)
+			step += 1
+				
+			done.append(final)
+		#print("Returning array: ", done)
+		# return array of grouped bytes
+		return done
+
+	#grouped = groupHex(arr)
+
+	# accepts byte pair list, returns byte pair list in little endian format
+	def toBigEndian(pair):
+		# arr = groupHex(array)
+		done = []
+
+		for group in pair:
+			limit = len(group) - 1
+			# print('The limit is: ', limit)
+			# print("The current group: ", group)
+			final = []
+			
+			while (limit >= 0):
+				step = 0
+				array = []
+	
+				while (step <= 1):
+					array.append(group[limit][step])
+					step += 1
+				limit -= 1
+				final.append(array)
+			done.append(final)
+
+		# print('Done: ', done)
+		return done
+		
+
+	#convert to big endian
+	# newArr = toBigEndian(grouped)
+
+
+	#should return array of big-endian formatted pieces of the block
+	#converted = convertEndian(splitblock)
+	#print("Converting complete")
+
+	loaded = loadBlock(raw)
+
+	splitblock = splitBlock(loaded)
+
+	dBlock = toDict(splitblock)
+
+	txString = toString(dBlock['bhash'])
+	
+	txSplit = splitTx(txString)
+
+	dBlock['bhash'] = txSplit
+
+
+	return dBlock
+
+			
+	#return converted
+
