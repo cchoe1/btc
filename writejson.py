@@ -14,8 +14,4 @@ def storeJson(dict):
 	print("Successfully written to: ", file)
 
 	
-	print(
-		datetime.datetime.fromtimestamp(
-		    int(dict['btime'], 16)
-		).strftime('%Y-%m-%d %H:%M:%S')
-	)
+	

@@ -44,13 +44,13 @@ def writeFile(filenum):
 	
 	def write(data, filenum):
 		fin = numToStr(filenum)
-		file = returnFileName('/media/calvin/hdd1/step1/blk', fin, '.txt')
+		file = returnFileName('/media/calvin/hdd1/step1/blok', fin, '.txt')
 
 		#returns starting number point
 		def readLastLine(filenum, data):
 			lastFileNum = filenum - 1
 			num = numToStr(lastFileNum)
-			fileName = returnFileName('/var/www/html/py-test/blok/blok', num, '.txt')
+			fileName = returnFileName('/media/calvin/hdd1/step1/blok', num, '.txt')
 
 			with open(fileName, 'r') as prevFile:
 				for line in prevFile:
@@ -105,29 +105,48 @@ def writeFile(filenum):
 	
 	#create loop that loops through everything below but increments filename by 1 each time
 	
+	####
 	# sets filenumber
 	# returns integer as string with leading zeros
+	#
 	numString = numToStr(filenum)
 	
+	####
 	# readData( {filenumber} )
+	#
+	#
+	#
 	file = readData(numString)
 	
+	####
 	# combineHex( {filename} )
+	#
+	#
+	#
 	combined = combineHex(file)
 	
+	####
 	# toString( {array of chars} )
+	#
+	#
+	#
 	string = toString(combined)
 	
+	####
 	# splitParse( {single string} , {string to search} )
+	#
+	#
 	split = splitParse(string)
 
 	# completed = addNumber(split)
 	
+	####
 	# writeFile( {list of blocks} , {filenumber} )
+	#
+	#
+	#
 	write(split, filenum)
 
 
 
 
-# split = splitParse(string)
-# print(split[1])

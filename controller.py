@@ -1,30 +1,46 @@
 from readfile import *
 from readblock import *
 from writejson import *
+from analyzeblock import *
 
-choice = 0
 
-# 0 index = # of lines, line # starts at 1
-# openFile( {file number} , {line number} )
+###########################################
+# The idea is that we run 2 main programs:
+# One writes files, one reads files
+#
+###########################################
 
-# the idea is that we run 2 main programs:
-# one writes files, one reads files
 
-# we pass the file number + the line of each file into this controller, which loops through everything or can find specific information
+# We pass the file number + the line of each file into this controller, which loops through everything 
+# 	or can find specific information
 #
 filenum = 0
 blocknum = 0
-while(choice < 1000):
+while(blocknum < 1000):
 	print("---------------------")
+	
+	# 0 index = # of lines, line # starts at 1
+	# openFile( {file number} , {line number} )
+	#
 	var = openFile(filenum,blocknum)
 	
+	
+	# This function takes in an array with 2 arrays inside - [0] is the block line number, [1] is the raw block hex
+	#
+	#
 	compiled = compileBlock(var)
 	
-	print("Compiled = ", compiled)
 	
-	storeJson(compiled)
+	# This will create a Python dictionary for various analytics that will be shown
+	# 	on the website, such as UTC time, prev, next, current hash, etc.
+	#
+	web = analysisForWeb(compiled)
+	
+	
 	blocknum += 1
-	choice += 1
+	#storeJson(compiled)
+
+
 # print("Compiled = ", compiled['bhash'])
 
 

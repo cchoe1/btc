@@ -47,10 +47,12 @@ def openFile(fnum, lin):
 	# returns a list containing 2 elements: 0 - block #, 1 - block contents
 	return contents
 
+# This function is responsible for returning a plain raw line
+#
+#
 
-#openFile( {file number}, {line number} ), 0 index starting point
-# fileContent = openFile(0,1)
+def returnRaw(fnum, lin):
+	temp = 0
 
-# print(fileContent)
 
 #next create controller to loop through every line of every file and parse it
