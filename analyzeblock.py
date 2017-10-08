@@ -2,16 +2,19 @@ import binascii
 import hashlib
 import datetime
 import json
-from genfunc import *
+import genfunc
 
 ##########
 # Pass this function a dictionary of the main, unaltered components of the block
+# 
 # This will then create the header, so it can be passed into a function to be hashed
 # 
 # All values this receives is in little endian, string format
 #
 # This function works on a block-by-block basis
 #
+# NOTE : You should always start this program at 1, because
+# 	the genesis block is implied--there is no need to check it
 
 def analysisForWeb(di):
 
@@ -46,12 +49,12 @@ def analysisForWeb(di):
 		#
 		finalLittle = little.decode('utf-8')
 		finalBig = big.decode('utf-8')
-		return finalBig
+		return finalLittle
 	
 
 	def getTimeReadable(di):
 		time = di["btime"]
-		timeRev = toBigEndian(time)
+		timeRev = genfunc.toBigEndian(time)
 
 
 		readable = datetime.datetime.fromtimestamp( int(timeRev, 16) ).strftime('%Y-%m-%d %H:%M:%S')
@@ -92,4 +95,3 @@ def analysisForWeb(di):
 
 
 
-		

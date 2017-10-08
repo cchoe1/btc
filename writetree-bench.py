@@ -22,7 +22,7 @@ def createTree(startpos):
 		return jsonDict
 
 	def getLastEntry():
-		file = '/media/calvin/hdd1/maintree/maintree.txt'
+		file = '/media/calvin/hdd1/maintree/maintree-test.txt'
 		with open(file, "r") as f:
 			for line in f:
 				pass
@@ -44,14 +44,15 @@ def createTree(startpos):
 		
 	def loopCheck(num):
 		x = 0
-		newNum = 1
-		while(x < 100000):
+		#newNum = 0
+		while(x < 3000):
 
 			main = getLastEntry()
 			#num += 1
 			checkJson = readJson(num)
 			check = checkJson['bprev']
-	
+
+			print("-------------------------------------")
 			print("Most recently validated hash:    ", main)
 			print("Hash to be checked against main: ", check)
 	
@@ -60,7 +61,7 @@ def createTree(startpos):
 			if(stat == True):
 				print("SUCCESS! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 				print('Line number: ', checkJson['bline'])
-				file = '/media/calvin/hdd1/maintree/maintree.txt'
+				file = '/media/calvin/hdd1/maintree/maintree-test.txt'
 
 				with open(file, "a") as f:
 					f.write(checkJson['bline'])
@@ -76,8 +77,7 @@ def createTree(startpos):
 				#
 				# There is a chance that you might not find the match, but starting at 33% is
 				# 	a pretty good start
-				add = int(newNum * 0.33)
-				newNum = int(newNum / 3) + add
+				newNum = int(0)
 
 				# If the original search fails, reset to 0, begin searching again
 				# This number will set once the first search fails, and then reiterates
@@ -91,13 +91,14 @@ def createTree(startpos):
 					check = checkJson['bprev']
 
 					stat = checkMatch(main, check)
+					print("-----------------------------------")
 					print("Most recently validated hash:    ", main)
 					print("Hash to be checked against main: ", check)
 
 					if(stat == True):
 						print("SUCCESS! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 						print('Line number: ', checkJson['bline'])
-						file = '/media/calvin/hdd1/maintree/maintree.txt'
+						file = '/media/calvin/hdd1/maintree/maintree-test.txt'
 						
 						with open(file, "a") as f:
 							f.write(checkJson['bline'])

@@ -15,8 +15,8 @@ from analyzeblock import *
 # 	or can find specific information
 #
 filenum = 0
-blocknum = 0
-while(blocknum < 1000):
+blocknum = 100000
+while(blocknum < 110000):
 	print("---------------------")
 	
 	# 0 index = # of lines, line # starts at 1
