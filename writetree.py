@@ -4,6 +4,7 @@ import json
 ####
 # This file will be used to create the main tree and organize the block data
 #
+# This file verifies the integrity of the main block chain
 def createTree(startpos):
 	def returnFileName(num):
 		filepath = '/media/calvin/hdd1/firstTree/'
@@ -42,14 +43,13 @@ def createTree(startpos):
 		else:
 			return False
 		
-	def loopCheck(num):
+	def loopCheck(newNum):
 		x = 0
-		newNum = 1
-		while(x < 100000):
+		while(x < 400000):
 
 			main = getLastEntry()
 			#num += 1
-			checkJson = readJson(num)
+			checkJson = readJson(newNum)
 			check = checkJson['bprev']
 	
 			print("Most recently validated hash:    ", main)
@@ -76,14 +76,12 @@ def createTree(startpos):
 				#
 				# There is a chance that you might not find the match, but starting at 33% is
 				# 	a pretty good start
-				add = int(newNum * 0.33)
-				newNum = int(newNum / 3) + add
+				newNum = int(newNum * 0.98)
 
 				# If the original search fails, reset to 0, begin searching again
 				# This number will set once the first search fails, and then reiterates
 				# Until it finds a suitable match
 
-				num = 0
 
 				while(stat != True):
 					
@@ -124,4 +122,4 @@ def createTree(startpos):
 ####
 # The call to the main function
 #
-createTree(0)
+createTree(120200)

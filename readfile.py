@@ -6,7 +6,7 @@ def openFile(fnum, lin):
 	
 	#takes a number generated above to choose the proper file
 	def chooseFile(numstr):
-		fs = '/media/calvin/hdd1/step1/blk'
+		fs = '/media/calvin/hdd1/step1/blok'
 		fext = '.txt'
 		fileName = fs + numstr + fext
 		return fileName
@@ -36,6 +36,9 @@ def openFile(fnum, lin):
 
 	contents = readFile(file, lin)
 
+	# print("Error!")
+	# 	return False
+
 	
 
 	print("Your filenumber is: ", numstr)
@@ -47,6 +50,9 @@ def openFile(fnum, lin):
 	# returns a list containing 2 elements: 0 - block #, 1 - block contents
 	return contents
 
+
+
+####
 # This function is responsible for returning a plain raw line
 #
 #
@@ -55,4 +61,21 @@ def returnRaw(fnum, lin):
 	temp = 0
 
 
-#next create controller to loop through every line of every file and parse it
+####
+# This function is responsible for reading the maintree.txt and writing the json files to the correct name order
+#
+#
+def readTree(num):
+	file = '/media/calvin/hdd1/maintree/maintree.txt'
+	with open(file, 'r') as f:
+		for i, line in enumerate(f):
+			if(i == num):
+				hold = line
+				break
+	split = hold.split('|')
+	
+	final = []
+	final.append(split[0])
+	final.append(split[1].replace("\n", ''))
+
+	return final

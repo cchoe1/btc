@@ -18,7 +18,7 @@ from genfunc import *
 # NOTE : You should always start this program at 1, because
 # 	the genesis block is implied--there is no need to check it
 
-def analysisForWeb(dinum):
+def analysisForWebB(dinum):
 
 	def returnDi(dinum):
 		filepath = '/media/calvin/hdd1/json/'
@@ -59,30 +59,61 @@ def analysisForWeb(dinum):
 		finalLittle = little.decode('utf-8')
 		finalBig = big.decode('utf-8')
 		return finalLittle
+	
 
-	def createWebJson(curr, di):
+	def getTimeReadable(di):
+		time = di["btime"]
+		timeRev = toBigEndian(time)
+
+		readable = datetime.datetime.fromtimestamp( int(timeRev, 16) ).strftime('%Y-%m-%d %H:%M:%S')
+		print("Time test", timeRev)
+		return readable
+
+	# This will create the final dictionary that gets returned from this functions
+	# Accepts little-end values
+	#	
+
+	def createWebJson(arr, di, dinum):
+		dinum = dinum + 1
+		nextdi = returnDi(dinum)
+		nexthead = createHeader(nextdi)
+		nexthash = hashBlock(nexthead)
+
 		bnum = di['_id']
-		bprev = di['bprev']
-		thehash = curr
+		bvers = toBigEndian(di['bvers'])
+		bprev = toBigEndian(di['bprev'])
+		bmerk = toBigEndian(di['bmerk'])
+		btime = toBigEndian(di['btime'])
+		bdiff = toBigEndian(di['bdiff'])
+		bnonce = toBigEndian(di['bnonce'])
+		bhash = toBigEndian(arr[1])
+		btimer = arr[2]
+		btxct = toBigEndian(di['btxct'])
+		btx = di['bhash']
+		bnext = toBigEndian(nexthash)
 
-
-		verifyJson = ({"bline": bnum, 'bprev': bprev, "bcurr": thehash})
-		return verifyJson
+		webJson = ({"bline": bnum, 'btxct': btxct, 'btx': btx, 'bnext': bnext, "bhead": {"bvers": bvers, 'bprev': bprev, 'bmerk': bmerk, 
+			'btime': btime, 'bdiff': bdiff, 'bnonce': bnonce}, "bhash": bhash, "btimer": btimer})
+		return webJson
 
 	####
 	# Main logic begins here
 	# 
 	#
 
+	temparr = []
 	di = returnDi(dinum)
 	head = createHeader(di)
 	hashed = hashBlock(head)
+	time = getTimeReadable(di)
 
+	temparr.append(head)
+	temparr.append(hashed)
+	temparr.append(time)
 
 	
 
-	jsonForWeb = createWebJson(hashed, di)
-	print(jsonForWeb)
+	jsonForWeb = createWebJson(temparr, di, int(dinum))
 
 
 	return jsonForWeb

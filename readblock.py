@@ -3,7 +3,7 @@
 from bitcoin import *
 from genfunc import *
 # Pass in the array of arrays with first element being the block number and the second being the raw block data
-#
+# Reads from INT1 files - receives little-end values
 #
 
 def compileBlock(raw):
@@ -62,10 +62,6 @@ def compileBlock(raw):
 
 	def splitTx(tx):
 
-		def findChecksig(array):
-			checksig = array[-10:]
-			return checksig
-
 
 		def split88ac(string):
 			array = string.split('ac00000000')
@@ -103,20 +99,6 @@ def compileBlock(raw):
 	splitblock = splitBlock(loaded)
 
 
-	####################################################
-	newarr = []
-	key = 0
-	lenSplit = len(splitblock) - 1
-	#newarr.append(str(raw[0][0]))
-
-	# while(key < lenSplit):
-	# 	temp = toBigEndian(splitblock[key])
-	# 	newarr.append(temp)
-	# 	key += 1
-
-	#####################################################
-
-
 	# Turns the elements inside the array of arrays into strings, little-endian format
 	# NOTE: You need to convert to big-endian before showing to end-users
 	#
@@ -124,7 +106,6 @@ def compileBlock(raw):
 
 
 	dBlock = toDict(stringedHash)
-	print(dBlock)
 
 
 	##############################
