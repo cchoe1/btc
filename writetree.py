@@ -31,7 +31,7 @@ def createTree(startpos):
 			final = line.replace('\n', '')
 
 			# This splits it into an array [0] = line number, [1] = hash for current line
-			#
+			# Line number is only used for storing into JSON2
 			split = final.split('|')
 
 		return split[1]
@@ -74,9 +74,9 @@ def createTree(startpos):
 				# This number is used to start from a smaller position, instead of 0 everytime
 				# Saves computing power
 				#
-				# There is a chance that you might not find the match, but starting at 33% is
+				# There is a chance that you might not find the match, but starting at 99.5% is
 				# 	a pretty good start
-				newNum = int(newNum * 0.98)
+				newNum = int(newNum * 0.989) + 100
 
 				# If the original search fails, reset to 0, begin searching again
 				# This number will set once the first search fails, and then reiterates
@@ -122,4 +122,4 @@ def createTree(startpos):
 ####
 # The call to the main function
 #
-createTree(120200)
+createTree(200000)

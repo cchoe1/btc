@@ -3,22 +3,16 @@ from readblock import *
 from writejson import *
 #from analyzeblock import *
 
-
-
-###########################################
-# The idea is that we run 2 main programs:
-# One writes files, one reads files
-#
-###########################################
-
+####
 # This file will write the first json files - the raw hex
 
-
+####
 # We pass the file number + the line of each file into this controller, which loops through everything 
 # 	or can find specific information
 #
-filenum = 100
+filenum = 80
 blocknum = 0
+
 
 ####
 # Begin loop - choose starting file & starting block num (suggested: 0 start)
@@ -26,9 +20,12 @@ blocknum = 0
 #
 
 
-while(blocknum < 120000):
+while(blocknum < 5):
 
-	if(filenum > 500):
+	####
+	# Specify how many files you want it to iterate
+	#
+	if(filenum > 305):
 		break
 
 	else:
@@ -66,75 +63,12 @@ while(blocknum < 120000):
 		#
 		# Note:  You cannot write to an erroneous file -- at worst, you might skip one
 		# 	But the file number is retained within the JSON object so it cannot be 
-		# 	written to an erroneous name	
+		# 	written to an erroneous name - when other programs run, this chain will
+		# 	be double-validated since the program will stop if it can't find a file
+		#
+		# 	aka - if you miss a file, you don't have to rewrite them all, just find
+		# 	the missing file and write it in
 		except IndexError:
 			print("End of file")
 			blocknum = 0
 			filenum += 1
-	
-	
-	
-	
-	
-	
-	
-
-
-
-# print("Compiled = ", compiled['bhash'])
-
-
-# while (inc < 3):
-# 	var = openFile(0,inc)
-# 	compiled = compileBlock(var)
-
-# 	inc += 1
-
-
-	
-
-
-#############################################
-
-############# User Interface ################
-
-#############################################
-
-# print("Hello Calvin, Welcome Back")
-
-
-# input(choice)
-# while (choice <= 0):
-# 	print("Please input a command")
-# 	if(choice == '1'):
-# 		var = openFile(0,1)
-	
-# 		compiled = compileBlock(var)
-	
-# 		print(compiled[577])
-	
-# 	elif(choice == '2'):
-# 		print("You picked 1")
-# 		length = int(openFile(0,0))
-# 		print(length)
-
-# 		choice = 0
-	
-# 	elif(choice == '9'):
-# 		print("You picked 9.  Hit 9 again to exit")
-# 		choice = 0
-	
-# 		input(choice)
-	
-# 		if(choice == '9'):
-# 			choice = 0
-# 			break
-
-# 		else:
-# 			print("I'm sorry.  I didn't recognize that command.  Exiting to main menu")
-# 			choice = 0
-# 			input(choice)
-
-# 	else:
-# 		print("I'm sorry.  I didn't recognize that command")
-# 		choice = 0

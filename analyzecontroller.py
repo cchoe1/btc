@@ -10,9 +10,9 @@ from genfunc import *
 # analysisForWeb is used for generating JSON file that will supply the web page with info
 # Also can pass the values into writeFirstJson
 
-x = 192000
+x = 299999
 
-while(x < 300000):
+while(x < 450000):
 	json = analysisForWeb(x)
 	
 	
