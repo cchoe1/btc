@@ -4,6 +4,7 @@ import datetime
 import json
 from readfile import *
 from genfunc import *
+from bitcoin import *
 
 
 ##########
@@ -72,32 +73,43 @@ def analysisForWebB(dinum):
 
 	# This will create the final dictionary that gets returned from this functions
 	# Accepts little-end values
-	#	
+	# Returns array
 	def splitTx(tx):
-
-
-		def split88ac(string):
-			array = string.split('ac00000000')
-			new = []
-
-			for entry in array:
-				entry = entry + 'ac00000000'
-				new.append(entry)
-
-			new.pop(len(new) - 1)
-			return new
 
 		def getCoinbase(array):
 			split = []
-			new = array.pop(0)
+			new = array.split('ac00000000', 1)
+			new[0] = new[0] + 'ac00000000'
 
-			split.append([new])
-			split.append(array)
-			return split
+			return new
 
+		def split88ac(string):
+			coinbase = getCoinbase(string)
+			array = coinbase[1].split('88ac00000000')
+			new = []
+			new.append(coinbase[0])
+
+			for entry in array:
+				entry = entry + '88ac00000000'
+				new.append(entry)
+
+			new = new[:-1]
+			return new
 
 		split = split88ac(tx)
 		return split
+
+	####
+	# Pass in an array of the transactions
+	#
+	def readTx(arr):
+		new = []
+
+		for tx in arr:
+			temp = deserialize(tx)
+			new.append(temp)
+		print(new)
+		return new
 
 	def createWebJson(arr, di, dinum):
 		nextNum = dinum + 1
@@ -108,6 +120,7 @@ def analysisForWebB(dinum):
 		# nexthead = createHeader(nextdi)
 		# nexthash = hashBlock(nexthead)
 		btx = splitTx(di['bhash'])
+		btxRead = readTx(btx)
 
 		bnum = di['_id']
 		bvers = toBigEndian(di['bvers'])
@@ -122,9 +135,14 @@ def analysisForWebB(dinum):
 		bnext = toBigEndian(nextLineHash)
 		blen = toBigEndian(di['blen'])
 
-		webJson = ({'blen': blen, "bline": bnum, 'btxct': btxct, 'bnext': bnext, "bhash": bhash, "btimer": btimer, 'btx': btx,
+		webJson = ({'blen': blen, "bline": bnum, 'btxct': btxct, 'bnext': bnext, "bhash": bhash, "btimer": btimer, 'btx': [],
 			"bhead": {"bvers": bvers, 'bprev': bprev, 'bmerk': bmerk, 'btime': btime, 'bdiff': bdiff, 'bnonce': bnonce},})
-		print(webJson)
+
+		txArr = []
+		for tx in btxRead:
+			txArr.append(tx)
+			
+		webJson.update({'btx': txArr })
 		return webJson
 
 	####
