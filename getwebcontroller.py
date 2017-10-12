@@ -1,18 +1,17 @@
 from getwebjson import *
 from writejson import *
-from readfile import *
 
 #webjson = analysisForWeb(1)
 
 #print("The json = ", webjson['_id'])
 
-x = 11500
-while(x < 11510):
+x = 0
+while(x < 100000):
 	####
 	#
 	#
 	#
-	line = readTree(x)
+	#line = readTree(x)
 
 
 
@@ -20,17 +19,16 @@ while(x < 11510):
 	#
 	#
 	#
-	webjson = analysisForWebB(line[0])
+	webjson = analysisForWebB(x)
 	webjson.update({'_id': str(x)})
 
-	print(webjson)
 
 	
 	####
 	#
 	#
 	#
-	#writeThirdJson(webjson, x)
+	writeThirdJson(webjson, x)
 
 	x += 1
 

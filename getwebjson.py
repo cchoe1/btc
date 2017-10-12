@@ -2,6 +2,7 @@ import binascii
 import hashlib
 import datetime
 import json
+from readfile import *
 from genfunc import *
 
 
@@ -19,6 +20,7 @@ from genfunc import *
 # 	the genesis block is implied--there is no need to check it
 
 def analysisForWebB(dinum):
+	line = readTree(dinum)
 
 	def returnDi(dinum):
 		filepath = '/media/calvin/hdd1/json/'
@@ -66,18 +68,46 @@ def analysisForWebB(dinum):
 		timeRev = toBigEndian(time)
 
 		readable = datetime.datetime.fromtimestamp( int(timeRev, 16) ).strftime('%Y-%m-%d %H:%M:%S')
-		print("Time test", timeRev)
 		return readable
 
 	# This will create the final dictionary that gets returned from this functions
 	# Accepts little-end values
 	#	
+	def splitTx(tx):
+
+
+		def split88ac(string):
+			array = string.split('ac00000000')
+			new = []
+
+			for entry in array:
+				entry = entry + 'ac00000000'
+				new.append(entry)
+
+			new.pop(len(new) - 1)
+			return new
+
+		def getCoinbase(array):
+			split = []
+			new = array.pop(0)
+
+			split.append([new])
+			split.append(array)
+			return split
+
+
+		split = split88ac(tx)
+		return split
 
 	def createWebJson(arr, di, dinum):
-		dinum = dinum + 1
-		nextdi = returnDi(dinum)
-		nexthead = createHeader(nextdi)
-		nexthash = hashBlock(nexthead)
+		nextNum = dinum + 1
+		nextLine = readTree(nextNum)
+		nextLineHash = nextLine[1]
+
+		# nextdi = returnDi(nextLineIndex)
+		# nexthead = createHeader(nextdi)
+		# nexthash = hashBlock(nexthead)
+		btx = splitTx(di['bhash'])
 
 		bnum = di['_id']
 		bvers = toBigEndian(di['bvers'])
@@ -89,11 +119,12 @@ def analysisForWebB(dinum):
 		bhash = toBigEndian(arr[1])
 		btimer = arr[2]
 		btxct = toBigEndian(di['btxct'])
-		btx = di['bhash']
-		bnext = toBigEndian(nexthash)
+		bnext = toBigEndian(nextLineHash)
+		blen = toBigEndian(di['blen'])
 
-		webJson = ({"bline": bnum, 'btxct': btxct, 'btx': btx, 'bnext': bnext, "bhead": {"bvers": bvers, 'bprev': bprev, 'bmerk': bmerk, 
-			'btime': btime, 'bdiff': bdiff, 'bnonce': bnonce}, "bhash": bhash, "btimer": btimer})
+		webJson = ({'blen': blen, "bline": bnum, 'btxct': btxct, 'bnext': bnext, "bhash": bhash, "btimer": btimer, 'btx': btx,
+			"bhead": {"bvers": bvers, 'bprev': bprev, 'bmerk': bmerk, 'btime': btime, 'bdiff': bdiff, 'bnonce': bnonce},})
+		print(webJson)
 		return webJson
 
 	####
@@ -102,7 +133,7 @@ def analysisForWebB(dinum):
 	#
 
 	temparr = []
-	di = returnDi(dinum)
+	di = returnDi(line[0])
 	head = createHeader(di)
 	hashed = hashBlock(head)
 	time = getTimeReadable(di)

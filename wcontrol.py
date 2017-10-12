@@ -1,8 +1,8 @@
 ## controller for writing files
 from writefile import *
 
-x = 420
-while (x < 422):
+x = 1015
+while (x < 1030):
 	writeFile(x)
 	x += 1
 

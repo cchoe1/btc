@@ -60,31 +60,7 @@ def compileBlock(raw):
 
 		return split
 
-	def splitTx(tx):
-
-
-		def split88ac(string):
-			array = string.split('ac00000000')
-			new = []
-
-			for entry in array:
-				entry = entry + 'ac00000000'
-				new.append(entry)
-
-			new.pop(len(new) - 1)
-			return new
-
-		def getCoinbase(array):
-			split = []
-			new = array.pop(0)
-
-			split.append([new])
-			split.append(array)
-			return split
-
-
-		split = split88ac(tx)
-		return split
+	
 
 
 	# Returns specific block
