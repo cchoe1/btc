@@ -22,6 +22,9 @@ from bitcoin import *
 
 def analysisForWebB(dinum):
 	line = readTree(dinum)
+	
+	def getTxArr(txArr):
+		print("Test")
 
 	def returnDi(dinum):
 		filepath = '/media/calvin/hdd1/json/'
@@ -51,7 +54,7 @@ def analysisForWebB(dinum):
 		temp = header.encode('utf-8')
 		header_bin = binascii.a2b_hex(temp)
 		hashed = hashlib.sha256(hashlib.sha256(header_bin).digest()).digest()
-		
+
 		little = binascii.b2a_hex(hashed)
 		big = binascii.b2a_hex(hashed[::-1])
 
@@ -62,7 +65,7 @@ def analysisForWebB(dinum):
 		finalLittle = little.decode('utf-8')
 		finalBig = big.decode('utf-8')
 		return finalLittle
-	
+
 
 	def getTimeReadable(di):
 		time = di["btime"]
@@ -78,12 +81,16 @@ def analysisForWebB(dinum):
 
 		def getCoinbase(array):
 			split = []
+			inc = 0
+
+			print(array)
 			new = array.split('ac00000000', 1)
 			new[0] = new[0] + 'ac00000000'
-
+			print('Split successful', inc)
 			return new
 
 		def split88ac(string):
+			inc = 0
 			coinbase = getCoinbase(string)
 			array = coinbase[1].split('88ac00000000')
 			new = []
@@ -98,17 +105,22 @@ def analysisForWebB(dinum):
 
 		split = split88ac(tx)
 		return split
-
 	####
 	# Pass in an array of the transactions
 	#
 	def readTx(arr):
 		new = []
-
+		inc = 0
 		for tx in arr:
-			temp = deserialize(tx)
-			new.append(temp)
-		print(new)
+			try:
+				temp = deserialize(tx)
+				new.append(temp)
+				print("Successfully read tx", inc)
+				inc += 1
+				
+			except (IndexError, binascii.Error):
+				print("Error reading tx", tx)
+				pass
 		return new
 
 	def createWebJson(arr, di, dinum):
@@ -135,14 +147,23 @@ def analysisForWebB(dinum):
 		bnext = toBigEndian(nextLineHash)
 		blen = toBigEndian(di['blen'])
 
-		webJson = ({'blen': blen, "bline": bnum, 'btxct': btxct, 'bnext': bnext, "bhash": bhash, "btimer": btimer, 'btx': [],
+		webJson = ({'blen': blen, "bline": bnum, 'btxct': btxct, 'bnext': bnext, "bhash": bhash, "btimer": btimer,
 			"bhead": {"bvers": bvers, 'bprev': bprev, 'bmerk': bmerk, 'btime': btime, 'bdiff': bdiff, 'bnonce': bnonce},})
 
 		txArr = []
+
+		incr = 0
 		for tx in btxRead:
-			txArr.append(tx)
-			
+			txArr.append([{'btxraw': btx[incr], 'btxinfo': tx}])
+			incr += 1
+
+
 		webJson.update({'btx': txArr })
+
+		####
+		# This final object that is passed is what will be displayed
+		# Make all edits before this returns
+		#
 		return webJson
 
 	####
@@ -151,6 +172,7 @@ def analysisForWebB(dinum):
 	#
 
 	temparr = []
+
 	di = returnDi(line[0])
 	head = createHeader(di)
 	hashed = hashBlock(head)
