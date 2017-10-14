@@ -8,7 +8,7 @@ import datetime
 # Relies on first intermediate files (.txt) to run
 #
 def writeFirstJson(dict):
-	filepath = '/media/calvin/hdd1/json/'
+	filepath = '/media/calvin/hdd/json/'
 	filenum = str(dict['_id'])
 	fileext = '.json'
 
@@ -28,7 +28,7 @@ def writeFirstJson(dict):
 # Relies on firstJson output
 #
 def writeSecJson(di):
-	filepath = '/media/calvin/hdd1/firstTree/'
+	filepath = '/media/calvin/hdd/firstTree/'
 	filenum = str(di['bline'])
 	fileext = '.json'
 	file = filepath + filenum + fileext
@@ -43,7 +43,7 @@ def writeSecJson(di):
 #
 #
 def writeThirdJson(dict, start):
-	filepath = '/media/calvin/hdd1/webjson/'
+	filepath = '/media/calvin/hdd/webjson/'
 	filenum = str(start)
 	fileext = '.json'
 	

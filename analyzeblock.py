@@ -21,7 +21,7 @@ from genfunc import *
 def analysisForWeb(dinum):
 
 	def returnDi(dinum):
-		filepath = '/media/calvin/hdd1/json/'
+		filepath = '/media/calvin/hdd/json/'
 		filenum = str(dinum)
 		fileext = '.json'
 

@@ -13,7 +13,7 @@ def writeFile(filenum):
 		return final
 	
 	def readData(fin):
-		x = returnFileName('/media/calvin/hdd1/blocks/blk', fin, '.dat')
+		x = returnFileName('/media/calvin/hdd/blocks/blk', fin, '.dat')
 		with open(x, 'rb') as f:
 			hexdata = binascii.hexlify(f.read())
 			output = str(hexdata)
@@ -44,13 +44,13 @@ def writeFile(filenum):
 	
 	def write(data, filenum):
 		fin = numToStr(filenum)
-		file = returnFileName('/media/calvin/hdd1/step1/blok', fin, '.txt')
+		file = returnFileName('/media/calvin/hdd/step1/blok', fin, '.txt')
 
 		#returns starting number point
 		def readLastLine(filenum, data):
 			lastFileNum = filenum - 1
 			num = numToStr(lastFileNum)
-			fileName = returnFileName('/media/calvin/hdd1/step1/blok', num, '.txt')
+			fileName = returnFileName('/media/calvin/hdd/step1/blok', num, '.txt')
 
 			with open(fileName, 'r') as prevFile:
 				for line in prevFile:

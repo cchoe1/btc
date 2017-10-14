@@ -6,7 +6,7 @@ def openFile(fnum, lin):
 	
 	#takes a number generated above to choose the proper file
 	def chooseFile(numstr):
-		fs = '/media/calvin/hdd1/step1/blok'
+		fs = '/media/calvin/hdd/step1/blok'
 		fext = '.txt'
 		fileName = fs + numstr + fext
 		return fileName
@@ -66,7 +66,7 @@ def returnRaw(fnum, lin):
 #
 #
 def readTree(num):
-	file = '/media/calvin/hdd1/maintree/maintree.txt'
+	file = '/media/calvin/hdd/maintree/maintree.txt'
 	with open(file, 'r') as f:
 		for i, line in enumerate(f):
 			if(i == num):

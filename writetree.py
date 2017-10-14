@@ -7,7 +7,7 @@ import json
 # This file verifies the integrity of the main block chain
 def createTree(startpos):
 	def returnFileName(num):
-		filepath = '/media/calvin/hdd1/firstTree/'
+		filepath = '/media/calvin/hdd/firstTree/'
 		filenum = str(num)
 		fileext = '.json'
 		
@@ -23,7 +23,7 @@ def createTree(startpos):
 		return jsonDict
 
 	def getLastEntry():
-		file = '/media/calvin/hdd1/maintree/maintree.txt'
+		file = '/media/calvin/hdd/maintree/maintree.txt'
 		with open(file, "r") as f:
 			for line in f:
 				pass
@@ -60,7 +60,7 @@ def createTree(startpos):
 			if(stat == True):
 				print("SUCCESS! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 				print('Line number: ', checkJson['bline'])
-				file = '/media/calvin/hdd1/maintree/maintree.txt'
+				file = '/media/calvin/hdd/maintree/maintree.txt'
 
 				with open(file, "a") as f:
 					f.write(checkJson['bline'])

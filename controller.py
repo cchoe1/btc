@@ -10,8 +10,8 @@ from writejson import *
 # We pass the file number + the line of each file into this controller, which loops through everything 
 # 	or can find specific information
 #
-filenum = 273
-blocknum = 250
+filenum = 274
+blocknum = 158
 
 
 ####
@@ -20,7 +20,7 @@ blocknum = 250
 #
 
 
-while(blocknum < 300):
+while(blocknum < 160):
 
 	####
 	# Specify how many files you want it to iterate
