@@ -10,8 +10,9 @@ import readtx
 
 # First P2SH transaction was on block 160720
 
-x = 190000
-y = x + 100000
+x = 254713
+y = x + 1
+
 while(x < y):
 	####
 	#
@@ -32,9 +33,10 @@ while(x < y):
 	####
 	# readtx.py
 	#
-	readtx.splitTx(webjson['btx'])
 
-	z = x % 1000
+	splitTx = readtx.splitTx(webjson['btx'])
+	webjson.update({'btx': splitTx})
+	z = x % 10
 
 	if(z == 0):
 		print(x)
@@ -48,7 +50,7 @@ while(x < y):
 	# This is the final validated version of the blockchain data
 	# Block order is verified and transactions are deserialized
 	# Use these files to create the main transaction chain
-	#writeThirdJson(webjson, x)
+	writeThirdJson(webjson, x)
 
 	x += 1
 

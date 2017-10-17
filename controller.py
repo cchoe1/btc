@@ -10,8 +10,8 @@ from writejson import *
 # We pass the file number + the line of each file into this controller, which loops through everything 
 # 	or can find specific information
 #
-filenum = 274
-blocknum = 158
+filenum = 78
+blocknum = 0
 
 
 ####
@@ -20,7 +20,7 @@ blocknum = 158
 #
 
 
-while(blocknum < 160):
+while(blocknum < 1):
 
 	####
 	# Specify how many files you want it to iterate
@@ -52,7 +52,7 @@ while(blocknum < 160):
 			# 	on the website, such as UTC time, prev, next, current hash, etc.
 			#
 			#web = analysisForWeb(compiled)
-			writeFirstJson(compiled)
+			#writeFirstJson(compiled)
 			print("File number = ", filenum)
 			print("Block num = ", blocknum)
 			blocknum += 1

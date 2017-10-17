@@ -51,4 +51,4 @@ def writeThirdJson(dict, start):
 
 	with open(file, 'w') as fp:
 		json.dump(dict, fp, indent=4)
-	print("Finished writing to file: ", file)
+	#print("Finished writing to file: ", file)
