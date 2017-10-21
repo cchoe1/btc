@@ -10,8 +10,8 @@ import readtx
 
 # First P2SH transaction was on block 160720
 
-x = 254713
-y = x + 1
+x = 20500
+y = x + 200000
 
 while(x < y):
 	####
@@ -36,7 +36,7 @@ while(x < y):
 
 	splitTx = readtx.splitTx(webjson['btx'])
 	webjson.update({'btx': splitTx})
-	z = x % 10
+	z = x % 100
 
 	if(z == 0):
 		print(x)

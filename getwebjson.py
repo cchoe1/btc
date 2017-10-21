@@ -125,7 +125,7 @@ def analysisForWebB(dinum):
 
 	temparr = []
 	line = readTree(dinum)
-	print('Reading from /json/', line[0])
+	#print('Reading from /json/', line[0])
 	di = returnDi(line[0])
 	head = createHeader(di)
 	hashed = hashBlock(head)
